@@ -1,8 +1,6 @@
-# IGNews
+# Shop App
 
 This is an application of a generic shop with auth and using api made for him in [shop-api](https://github.com/matheustsdev/shop-api)
-
-This project was made on the Ignite React track, a Rocketseat course.
 
 ## Screenshots
 
