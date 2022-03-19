@@ -6,8 +6,13 @@ import {
   Poppins_500Medium,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-import { SignForm } from "./src/components/SignForm";
 import { SignInScreen } from "./src/screens/SignInScreen";
+import { Home } from "./src/screens/Home";
+import { Cart } from "./src/screens/Cart";
+import { AppRoutes } from "./src/routes/app.routes";
+import { CartProvider } from "./src/hooks/useCart";
+import { StatusBar } from "expo-status-bar";
+import { AuthProvider } from "./src/hooks/useAuth";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -20,5 +25,12 @@ export default function App() {
     return <AppLoading />;
   }
 
-  return <SignInScreen />;
+  return (
+    <AuthProvider>
+      <CartProvider>
+        <StatusBar translucent />
+        <AppRoutes />
+      </CartProvider>
+    </AuthProvider>
+  );
 }

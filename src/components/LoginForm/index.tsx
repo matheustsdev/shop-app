@@ -1,21 +1,35 @@
 import React from "react";
 
-import { Text, TextInput, View } from "react-native";
-
 import { InputContainer, StyledInput, StyledLabel } from "./styles";
 
-export function LoginForm() {
+interface LoginFormType {
+  onChangeEmail(text: string): void;
+  onChangePassword(text: string): void;
+  emailValue: string;
+  passwordValue: string;
+}
+
+export function LoginForm({
+  onChangeEmail,
+  onChangePassword,
+  emailValue,
+  passwordValue,
+}: LoginFormType) {
   return (
     <>
       <InputContainer>
         <StyledLabel>Email</StyledLabel>
 
-        <StyledInput />
+        <StyledInput onChangeText={onChangeEmail} value={emailValue} />
       </InputContainer>
       <InputContainer>
         <StyledLabel>Senha</StyledLabel>
 
-        <StyledInput />
+        <StyledInput
+          secureTextEntry
+          onChangeText={onChangePassword}
+          value={passwordValue}
+        />
       </InputContainer>
     </>
   );

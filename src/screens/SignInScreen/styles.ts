@@ -18,3 +18,16 @@ export const Heading = styled.Text`
 
   padding-bottom: 15px;
 `;
+
+export const LinkContainer = styled.TouchableOpacity`
+  width: 100%;
+  height: 50px;
+
+  justify-content: center;
+`;
+export const TextLink = styled.Text`
+  color: blue;
+  font-size: 16px;
+
+  text-align: center;
+`;

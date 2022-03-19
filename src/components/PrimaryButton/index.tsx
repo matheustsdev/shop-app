@@ -9,7 +9,7 @@ interface ButtonType extends TouchableOpacityProps {
 
 export function PrimaryButton({ children, ...rest }: ButtonType) {
   return (
-    <ButtonContainer onPress={() => {}} activeOpacity={0.7}>
+    <ButtonContainer activeOpacity={0.8} {...rest}>
       <StyledLabel>{children}</StyledLabel>
     </ButtonContainer>
   );
