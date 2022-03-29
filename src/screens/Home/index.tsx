@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { FlatList, Text } from "react-native";
 import { CartButton } from "../../components/CartButton";
@@ -22,24 +22,36 @@ import {
 } from "./styles";
 
 export function Home() {
+  const [search, setSearch] = useState("");
+  const [productsDisplayed, setProductsDisplayed] = useState<ProductType[]>([]);
   const { productsList } = useCart();
   const { user, handleLogout, isLogged } = useAuth();
   const navigation = useNavigation();
 
-  let productsListGrid: ProductType[] = [...productsList];
+  function createProductsGrid(productsArray: ProductType[]) {
+    let productsListGrid: ProductType[] = [...productsArray];
+    const blanckProduct: ProductType = {
+      product_id: 0,
+      title: "Blanck",
+      price: 0,
+      image_url: "Blanck",
+      description: "Blanck",
+      category: 0,
+      stock: 0,
+    };
+    if (productsArray.length % 2 !== 0) {
+      productsListGrid.push(blanckProduct);
+    }
 
-  const blanckProduct: ProductType = {
-    product_id: 0,
-    title: "Blanck",
-    price: 0,
-    image_url: "Blanck",
-    description: "Blanck",
-    category: 0,
-    stock: 0,
-  };
+    return productsListGrid;
+  }
 
-  if (productsList.length % 2 !== 0) {
-    productsListGrid.push(blanckProduct);
+  function filterProductsList() {
+    const filteredProductsLists = productsList.filter((product) =>
+      product.title.includes(search)
+    );
+
+    return createProductsGrid(filteredProductsLists);
   }
 
   const mockedCategory: CategoryType[] = [
@@ -52,22 +64,28 @@ export function Home() {
   ];
 
   useEffect(() => {
+    setProductsDisplayed(createProductsGrid(productsList));
+
     if (user.user_id === undefined) {
       navigation.navigate("Login" as never, {} as never);
     }
   }, [user, isLogged]);
 
+  useEffect(() => {
+    setProductsDisplayed(filterProductsList());
+  }, [search]);
+
   return (
     <Container>
       <HighlightView />
       <Header>
-        <Greeting>{user.nickname}</Greeting>
+        <Greeting />
         <LogoutContainer onPress={() => handleLogout()}>
           <LogoutText>Logout</LogoutText>
         </LogoutContainer>
       </Header>
       <SearchHeader>
-        <SearchBar />
+        <SearchBar value={search} onChangeText={setSearch} />
         <CartButton />
       </SearchHeader>
 
@@ -89,7 +107,7 @@ export function Home() {
         contentContainerStyle={{
           alignItems: "center",
         }}
-        data={productsListGrid}
+        data={productsDisplayed}
         numColumns={2}
         keyExtractor={(item) => item.product_id.toString()}
         renderItem={({ item }) => <ProductButton product={item} />}

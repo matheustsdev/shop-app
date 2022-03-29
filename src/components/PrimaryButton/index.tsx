@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
-import { TouchableOpacityProps } from "react-native";
+import { ActivityIndicator, TouchableOpacityProps } from "react-native";
+import { useAuth } from "../../hooks/useAuth";
 
 import { ButtonContainer, StyledLabel } from "./styles";
 
@@ -8,9 +9,14 @@ interface ButtonType extends TouchableOpacityProps {
 }
 
 export function PrimaryButton({ children, ...rest }: ButtonType) {
+  const { isLoading } = useAuth();
   return (
     <ButtonContainer activeOpacity={0.8} {...rest}>
-      <StyledLabel>{children}</StyledLabel>
+      {isLoading ? (
+        <ActivityIndicator size="small" color="white" />
+      ) : (
+        <StyledLabel>{children}</StyledLabel>
+      )}
     </ButtonContainer>
   );
 }

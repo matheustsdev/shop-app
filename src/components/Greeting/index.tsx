@@ -1,15 +1,19 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
 
 import { GreetingContainer, GreetingText } from "./styles";
 
-interface GreetingType {
-  children: ReactNode;
-}
+export function Greeting() {
+  const [nickname, setNickname] = useState("");
+  const { user } = useAuth();
 
-export function Greeting({ children }: GreetingType) {
+  useEffect(() => {
+    setNickname(user.nickname);
+  }, [user]);
+
   return (
     <GreetingContainer>
-      <GreetingText>Olá, {children}</GreetingText>
+      <GreetingText>Olá, {nickname}</GreetingText>
     </GreetingContainer>
   );
 }
