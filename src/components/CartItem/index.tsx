@@ -29,11 +29,11 @@ export function CartItem({ product }: CartItemType) {
   const { updateProductAmount } = useCart();
 
   function handleIncreaseAmount() {
-    updateProductAmount(product.product_id, product.inCartAmount + 1);
+    updateProductAmount(product.id, product.inCartAmount + 1);
   }
 
   function handleDecreaseAmount() {
-    updateProductAmount(product.product_id, product.inCartAmount - 1);
+    updateProductAmount(product.id, product.inCartAmount - 1);
   }
 
   function handleOpenModal() {
@@ -48,10 +48,7 @@ export function CartItem({ product }: CartItemType) {
     <>
       <ItemContainer activeOpacity={0.9} onPress={handleOpenModal}>
         <ItemContent>
-          <ImageBox
-            source={{ uri: product.image_url }}
-            resizeMode={"contain"}
-          />
+          <ImageBox source={{ uri: product.img_url }} resizeMode={"contain"} />
           <ProductDetails>
             <ProductTitle>{product.title}</ProductTitle>
             <ProductPrice>{(product.price / 100).toFixed(2)}</ProductPrice>

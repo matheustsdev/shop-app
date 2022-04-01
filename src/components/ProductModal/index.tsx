@@ -27,7 +27,7 @@ export function ProductModal({ product }: ProductModalType) {
 
   return (
     <ModalContainer>
-      <ModalImg source={{ uri: product.image_url }} resizeMode={"cover"} />
+      <ModalImg source={{ uri: product.img_url }} resizeMode={"cover"} />
       <ModalPrice>{formattedPrice}</ModalPrice>
       <ModalContent>
         <ModalTitle>{product.title}</ModalTitle>
@@ -44,7 +44,7 @@ export function ProductModal({ product }: ProductModalType) {
       </ModalContent>
       <HighlightButton
         onPress={() => {
-          addProductCart(product.product_id);
+          addProductCart(product.id);
         }}
       >
         Adicionar ao carrinho

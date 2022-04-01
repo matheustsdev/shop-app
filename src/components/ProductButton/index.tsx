@@ -33,11 +33,11 @@ export function ProductButton({ product }: ProductButtonType) {
 
   return (
     <>
-      {product.product_id === 0 ? (
+      {product.id === 0 ? (
         <BlanckProduct />
       ) : (
         <ProductContainer activeOpacity={0.8} onPress={handleOpenModal}>
-          <ImageBox source={{ uri: product.image_url }} />
+          <ImageBox source={{ uri: product.img_url }} />
           <TitleContainer>
             <ProductTitle>{product.title}</ProductTitle>
             <ProductPrice>{formattedPrice}</ProductPrice>

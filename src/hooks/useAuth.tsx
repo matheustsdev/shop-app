@@ -38,8 +38,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
         },
       })
       .then((res) => {
+        useAsyncStorage("@auth_token")
+          .setItem(res.data.auth_token)
+          .then(() => {
+            console.log("Added auth_token");
+          });
         setUser(res.data);
         setIsLogged(true);
+      })
+      .catch((err) => {
+        console.log(err);
       })
       .finally(() => {
         setIsLoading(false);
@@ -49,6 +57,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function handleLogout() {
     setUser({} as UserType);
     setIsLogged(false);
+    await useAsyncStorage("@auth_token").removeItem();
   }
 
   async function handleSignIn(newUser: SignInUser) {
@@ -67,30 +76,33 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   async function handleGetToken() {
-    return await useAsyncStorage("@auth_token").getItem();
-  }
-
-  async function handleSetToken() {
-    return await useAsyncStorage("@auth_token").setItem("test");
-  }
-
-  async function handleCheckToken() {
     const authToken = await useAsyncStorage("@auth_token")
       .getItem()
       .then((res) => {
         return res;
       });
 
-    if (user.auth_token === undefined) {
-      if (authToken) {
-        console.log("token:", authToken);
-        //Chamada por token e setar user
-      }
+    if (authToken) {
+      const user = await api
+        .get<UserType>(`/user`, {
+          headers: {
+            authorization: authToken,
+          },
+        })
+        .then((res) => {
+          setUser(res.data);
+          setIsLogged(true);
+        })
+        .catch((err) => {
+          console.log("Request with token", err);
+        });
     }
+
+    return await useAsyncStorage("@auth_token").getItem();
   }
 
   useEffect(() => {
-    handleCheckToken();
+    handleGetToken();
   }, []);
 
   return (

@@ -31,10 +31,10 @@ export function Home() {
   function createProductsGrid(productsArray: ProductType[]) {
     let productsListGrid: ProductType[] = [...productsArray];
     const blanckProduct: ProductType = {
-      product_id: 0,
+      id: 0,
       title: "Blanck",
       price: 0,
-      image_url: "Blanck",
+      img_url: "Blanck",
       description: "Blanck",
       category: 0,
       stock: 0,
@@ -55,18 +55,18 @@ export function Home() {
   }
 
   const mockedCategory: CategoryType[] = [
-    { category_id: 1, name: "Tênis" },
-    { category_id: 2, name: "Tênis" },
-    { category_id: 3, name: "Tênis" },
-    { category_id: 4, name: "Tênis" },
-    { category_id: 5, name: "Tênis" },
-    { category_id: 6, name: "Tênis" },
+    { id: 1, name: "Tênis" },
+    { id: 2, name: "Tênis" },
+    { id: 3, name: "Tênis" },
+    { id: 4, name: "Tênis" },
+    { id: 5, name: "Tênis" },
+    { id: 6, name: "Tênis" },
   ];
 
   useEffect(() => {
     setProductsDisplayed(createProductsGrid(productsList));
 
-    if (user.user_id === undefined) {
+    if (user.id === undefined) {
       navigation.navigate("Login" as never, {} as never);
     }
   }, [user, isLogged]);
@@ -96,7 +96,7 @@ export function Home() {
             alignItems: "center",
           }}
           data={mockedCategory}
-          keyExtractor={(item) => item.category_id.toString()}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => <CategoryItem category={item} />}
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -106,10 +106,11 @@ export function Home() {
       <FlatList
         contentContainerStyle={{
           alignItems: "center",
+          paddingBottom: 300,
         }}
         data={productsDisplayed}
         numColumns={2}
-        keyExtractor={(item) => item.product_id.toString()}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <ProductButton product={item} />}
         showsVerticalScrollIndicator={false}
       />

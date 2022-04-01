@@ -1,15 +1,15 @@
 export interface ProductType {
-  product_id: number;
+  id: number;
   title: string;
   price: number;
-  image_url: string;
+  img_url: string;
   description: string;
   category: number;
   stock: number;
 }
 
 export interface CategoryType {
-  category_id: number;
+  id: number;
   name: string;
 }
 
@@ -18,8 +18,8 @@ export interface InCartProductType extends ProductType {
 }
 
 export interface UserType {
-  user_id: number;
-  nickname: string;
+  id: string;
+  nickname?: string;
   email: string;
   password: string;
   fullname: string;
@@ -31,4 +31,15 @@ export interface SignInUser {
   email: string;
   password: string;
   fullname: string;
+}
+
+export interface CreateSellType {
+  sell: {
+    user_id: string;
+    total: number;
+  };
+  products: {
+    product_id: number;
+    amount: Number;
+  }[];
 }

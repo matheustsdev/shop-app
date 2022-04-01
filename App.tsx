@@ -13,6 +13,7 @@ import { AppRoutes } from "./src/routes/app.routes";
 import { CartProvider } from "./src/hooks/useCart";
 import { StatusBar } from "expo-status-bar";
 import { AuthProvider } from "./src/hooks/useAuth";
+import { View } from "react-native";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
