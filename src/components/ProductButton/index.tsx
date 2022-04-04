@@ -1,6 +1,8 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 
 import { ProductType } from "../../global/types";
+import { useCart } from "../../hooks/useCart";
 import { ModalView } from "../ModalView";
 import { ProductModal } from "../ProductModal";
 import {
@@ -18,6 +20,8 @@ interface ProductButtonType {
 
 export function ProductButton({ product }: ProductButtonType) {
   const [modalVisibility, setModalVisibility] = useState(false);
+  const { setProduct } = useCart();
+  const navigation = useNavigation();
 
   const formattedPrice = `R$ ${Math.floor(product.price / 100)},${String(
     product.price
@@ -36,7 +40,14 @@ export function ProductButton({ product }: ProductButtonType) {
       {product.id === 0 ? (
         <BlanckProduct />
       ) : (
-        <ProductContainer activeOpacity={0.8} onPress={handleOpenModal}>
+        <ProductContainer
+          activeOpacity={0.8}
+          onPress={() => {
+            navigation.navigate("ProductDetail" as never, { product } as never);
+            setProduct(product);
+          }}
+          style={{ elevation: 5 }}
+        >
           <ImageBox source={{ uri: product.img_url }} />
           <TitleContainer>
             <ProductTitle>{product.title}</ProductTitle>

@@ -2,16 +2,30 @@ import React from "react";
 
 import { Text } from "react-native";
 import { CategoryType } from "../../global/types";
-import { Container, Label } from "./styles";
+import { Active, ActiveLabel, Inactive, InactiveLabel } from "./styles";
 
 interface CategoryItemType {
   category: CategoryType;
+  activeCategory: string;
+  onPress(): void;
 }
 
-export function CategoryItem({ category }: CategoryItemType) {
+export function CategoryItem({
+  category,
+  activeCategory,
+  onPress,
+}: CategoryItemType) {
   return (
-    <Container activeOpacity={0.7}>
-      <Label>{category.name}</Label>
-    </Container>
+    <>
+      {activeCategory === category.name ? (
+        <Active activeOpacity={0.9} onPress={onPress}>
+          <ActiveLabel>{category.name}</ActiveLabel>
+        </Active>
+      ) : (
+        <Inactive activeOpacity={0.9} onPress={onPress}>
+          <InactiveLabel>{category.name}</InactiveLabel>
+        </Inactive>
+      )}
+    </>
   );
 }

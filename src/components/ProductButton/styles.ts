@@ -2,18 +2,19 @@ import styled from "styled-components/native";
 import { mainTheme } from "../../global/themes";
 
 export const ProductContainer = styled.TouchableOpacity`
-  background-color: #eee;
+  background-color: ${mainTheme.primary};
+  margin: 10px;
 
-  height: 225px;
+  height: 200px;
+  border-radius: 8px;
+  border: 0.5px solid #999;
 
   align-items: center;
   justify-content: space-between;
-  border-radius: 8px;
-  margin: 10px;
 `;
 export const ImageBox = styled.Image`
-  width: 165px;
-  height: 165px;
+  width: 150px;
+  height: 150px;
 
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -27,11 +28,13 @@ export const TitleContainer = styled.View`
 export const ProductTitle = styled.Text`
   font-size: 12px;
   font-weight: 500;
+  color: ${mainTheme.title};
 `;
 
 export const ProductPrice = styled.Text`
   font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
+  color: ${mainTheme.title};
 `;
 
 export const BlanckProduct = styled.TouchableOpacity`

@@ -1,12 +1,25 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer, Route } from "@react-navigation/native";
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack";
 import React from "react";
+import { ProductType } from "../global/types";
 import { Cart } from "../screens/Cart";
 import { Home } from "../screens/Home";
 import { LoginScreen } from "../screens/LoginScreen";
+import { ProductDetail } from "../screens/ProductDetail";
 import { SignInScreen } from "../screens/SignInScreen";
 
-const Stack = createNativeStackNavigator();
+type RoutesTypes = {
+  Home: undefined;
+  Cart: undefined;
+  Login: undefined;
+  SignIn: undefined;
+  ProductDetail: { product: ProductType };
+};
+
+const Stack = createNativeStackNavigator<RoutesTypes>();
 
 export function AppRoutes() {
   return (
@@ -19,6 +32,7 @@ export function AppRoutes() {
         <Stack.Screen name="Cart" component={Cart} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="ProductDetail" component={ProductDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

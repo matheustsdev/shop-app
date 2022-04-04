@@ -1,21 +1,38 @@
 import styled from "styled-components/native";
 import { mainTheme } from "../../global/themes";
-export const Container = styled.TouchableOpacity`
-  width: 100px;
-  height: 30px;
+export const Active = styled.TouchableOpacity`
+  width: 126px;
+  height: 24px;
 
   border-radius: 15px;
-  border: 1px solid ${mainTheme.secondary};
 
   justify-content: center;
   align-items: center;
 
-  background-color: ${mainTheme.light};
+  background-color: ${mainTheme.primary};
   margin: 8px;
 `;
-export const Label = styled.Text`
+
+export const Inactive = styled.TouchableOpacity`
+  width: 126px;
+  height: 24px;
+
+  border-radius: 15px;
+
+  justify-content: center;
+  align-items: center;
+
+  background-color: ${mainTheme.inactive};
+  margin: 8px;
+`;
+export const ActiveLabel = styled.Text`
   font-size: 16px;
   font-weight: bold;
 
-  color: ${mainTheme.secondary};
+  color: ${mainTheme.title};
+`;
+export const InactiveLabel = styled.Text`
+  font-size: 16px;
+
+  color: ${mainTheme.title};
 `;

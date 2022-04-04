@@ -2,7 +2,8 @@ import styled from "styled-components/native";
 
 export const SearchContainer = styled.View`
   background-color: #eee;
-  width: 75%;
+  width: 240px;
+  height: 32px;
 
   flex-direction: row;
   justify-content: space-evenly;
@@ -13,7 +14,7 @@ export const SearchContainer = styled.View`
 
 export const SearchInput = styled.TextInput`
   background-color: #eee;
-  height: 35px;
+  height: 32px;
   border-radius: 15px;
 
   width: 80%;

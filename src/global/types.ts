@@ -4,8 +4,11 @@ export interface ProductType {
   price: number;
   img_url: string;
   description: string;
-  category: number;
   stock: number;
+  category: {
+    id: number;
+    category: string;
+  };
 }
 
 export interface CategoryType {

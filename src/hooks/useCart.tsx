@@ -25,13 +25,17 @@ interface CartContextData {
   addProductCart(id: number): void;
   updateProductAmount(productId: number, newAmount: number): void;
   createSell(user: UserType): Promise<void>;
+  product: ProductType;
+  setProduct(product: ProductType): void;
   isLoading: boolean;
+  addProductCartWithAmount(productId: number, amount: number): void;
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData);
 
 export function CartProvider({ children }: CartProviderProps): JSX.Element {
   const [cart, setCart] = useState<InCartProductType[]>([]);
+  const [product, setProduct] = useState<ProductType>({} as ProductType);
   const [cartTotal, setCartTotal] = useState(0);
   const [productsList, setProductsList] = useState<ProductType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,7 +60,6 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     const verifiedProduct = productsList.find(
       (product) => product.id === productId
     );
-
     if (cartAmount > verifiedProduct!.stock) {
       return false;
     } else return true;
@@ -86,6 +89,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   async function updateProductAmount(productId: number, newAmount: number) {
     if (newAmount <= 0) {
+      console.log("Remove");
       removeProductCart(productId);
     } else {
       if (stockVerify(productId, newAmount)) {
@@ -95,12 +99,14 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
               ...product,
               inCartAmount: newAmount,
             };
+            console.log("Update -", updatedProduct);
             return updatedProduct;
           } else return product;
         });
 
         setCart(updatedCart);
       } else {
+        console.log("Out stcok");
         Alert.alert("Fora de estoque");
       }
     }
@@ -122,6 +128,25 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       );
 
       setCart((prev) => [...prev, { ...toAddProduct!, inCartAmount: 1 }]);
+    }
+  }
+
+  async function addProductCartWithAmount(productId: number, amount: number) {
+    const alreadyInCart =
+      cart.find((product) => product.id === productId) !== undefined;
+
+    // If already this product in cart, just increse your amount
+    if (alreadyInCart) {
+      const toUpdateProduct = cart.find((product) => productId === product.id);
+
+      updateProductAmount(productId, toUpdateProduct!.inCartAmount + amount);
+    } else {
+      // If dont have the same product in cart: add 1 unit
+      const toAddProduct = productsList.find(
+        (product) => productId === product.id
+      );
+
+      setCart((prev) => [...prev, { ...toAddProduct!, inCartAmount: amount }]);
     }
   }
 
@@ -174,7 +199,10 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
         addProductCart,
         updateProductAmount,
         createSell,
+        product,
+        setProduct,
         isLoading,
+        addProductCartWithAmount,
       }}
     >
       {children}
