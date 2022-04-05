@@ -88,7 +88,8 @@ export function Home() {
       <HomeHeader onChangeText={setSearch} value={search} />
       <HeroView>
         <HeroText style={{ fontFamily: "Poppins_700Bold" }}>
-          Confira nossa{"\n"}nova coleção, Matheus
+          Confira nossa{"\n"}nova coleção,{" "}
+          {isLogged ? user.fullname.split(" ")[0] : ""}
         </HeroText>
       </HeroView>
 

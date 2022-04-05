@@ -60,7 +60,6 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const categories = await api
         .get("categories")
         .then((res) => {
-          console.log(res.data);
           setCategoryList(res.data);
           return res.data;
         })

@@ -30,7 +30,7 @@ export interface UserType {
 }
 
 export interface SignInUser {
-  nickname: string;
+  nickname?: string;
   email: string;
   password: string;
   fullname: string;

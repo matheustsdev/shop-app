@@ -21,7 +21,6 @@ export function SignInForm() {
   async function handleSubmitNewUser() {
     if (password === verifyPassword) {
       const newUser: SignInUser = {
-        nickname,
         fullname,
         email,
         password,
@@ -67,13 +66,18 @@ export function SignInForm() {
         </View>
         <View>
           <StyledLabel>Senha</StyledLabel>
-          <StyledInput onChangeText={setPassword} value={password} />
+          <StyledInput
+            onChangeText={setPassword}
+            value={password}
+            secureTextEntry
+          />
         </View>
         <View>
           <StyledLabel>Repita a senha</StyledLabel>
           <StyledInput
             onChangeText={setVerifyPassword}
             value={verifyPassword}
+            secureTextEntry
           />
         </View>
 
