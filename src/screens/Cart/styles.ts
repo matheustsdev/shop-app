@@ -6,31 +6,35 @@ export const Container = styled.KeyboardAvoidingView`
 
   align-items: center;
   justify-content: center;
-`;
-export const PrimaryView = styled.View`
-  position: absolute;
+  padding-top: 50px;
+
   background-color: ${mainTheme.primary};
-  height: 300px;
-  width: 100%;
-  top: 0px;
 `;
-export const ResumeView = styled.View`
-  height: 250px;
+export const ContentContainer = styled.KeyboardAvoidingView`
+  flex: 1;
   width: 100%;
-
-  justify-content: center;
+  height: 600px;
   align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+
+  background-color: #fff;
 `;
 
-export const ResumeTitle = styled.Text`
-  font-size: 18px;
-
-  color: ${mainTheme.light};
-`;
-
-export const ResumeText = styled.Text`
+export const PageTitle = styled.Text`
   font-size: 32px;
-  font-weight: bold;
+  line-height: 48px;
+  font-weight: 500;
+  color: ${mainTheme.body};
+  text-align: center;
 
-  color: ${mainTheme.light};
+  background-color: #fff;
+  width: 100%;
+  padding-top: 6px;
+`;
+
+export const EmptyText = styled.Text`
+  font-size: 40px;
+  color: ${mainTheme.body};
+  text-align: center;
 `;

@@ -15,7 +15,7 @@ export function Home() {
   const [search, setSearch] = useState("");
   const [productsDisplayed, setProductsDisplayed] = useState<ProductType[]>([]);
   const [activeCategory, setActiveCategory] = useState("");
-  const { productsList, setProduct } = useCart();
+  const { productsList, setProduct, categoryList } = useCart();
   const { user, handleLogout, isLogged } = useAuth();
   const navigation = useNavigation();
 
@@ -49,20 +49,12 @@ export function Home() {
   }
 
   function filterByCategory() {
-    const filteredProductsLists = productsList.filter(
-      (product) => product.category.category === activeCategory
+    const filteredProductsLists = productsList.filter((product) =>
+      product.category.category.match(activeCategory)
     );
 
     return createProductsGrid(filteredProductsLists);
   }
-
-  const mockedCategory: CategoryType[] = [
-    { id: 1, name: "Tênis" },
-    { id: 2, name: "Tês" },
-    { id: 3, name: "Tnis" },
-    { id: 5, name: "ênis" },
-    { id: 6, name: "Têns" },
-  ];
 
   function handleActiveCategory(categoryName: string) {
     if (categoryName === activeCategory) {
@@ -70,8 +62,6 @@ export function Home() {
     } else {
       setActiveCategory(categoryName);
     }
-
-    console.log(activeCategory);
   }
 
   useEffect(() => {
@@ -89,10 +79,17 @@ export function Home() {
 
   return (
     <Container>
-      <HeroImg />
+      <HeroImg
+        activeOpacity={0.9}
+        onPress={() =>
+          navigation.navigate("NewCollection" as never, {} as never)
+        }
+      />
       <HomeHeader onChangeText={setSearch} value={search} />
       <HeroView>
-        <HeroText>Confira nossa{"\n"}nova coleção, Matheus</HeroText>
+        <HeroText style={{ fontFamily: "Poppins_700Bold" }}>
+          Confira nossa{"\n"}nova coleção, Matheus
+        </HeroText>
       </HeroView>
 
       <FlatList
@@ -100,13 +97,13 @@ export function Home() {
         contentContainerStyle={{
           alignItems: "center",
         }}
-        data={mockedCategory}
+        data={categoryList}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <CategoryItem
             category={item}
             activeCategory={activeCategory}
-            onPress={() => handleActiveCategory(item.name)}
+            onPress={() => handleActiveCategory(item.category)}
           />
         )}
         horizontal
@@ -115,8 +112,7 @@ export function Home() {
 
       <FlatList
         contentContainerStyle={{
-          alignItems: "center",
-          paddingBottom: 300,
+          paddingBottom: 500,
         }}
         data={productsDisplayed}
         numColumns={2}

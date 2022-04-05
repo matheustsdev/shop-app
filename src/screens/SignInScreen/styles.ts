@@ -19,15 +19,19 @@ export const Heading = styled.Text`
   padding-bottom: 15px;
 `;
 
-export const LinkContainer = styled.TouchableOpacity`
+export const LoginContainer = styled.View`
   width: 100%;
-  height: 50px;
+  height: 62px;
 
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 12px;
 `;
-export const TextLink = styled.Text`
-  color: blue;
+export const LoginText = styled.Text`
+  color: ${mainTheme.body};
   font-size: 16px;
+  line-height: 24px;
 
   text-align: center;
 `;

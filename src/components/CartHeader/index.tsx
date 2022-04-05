@@ -2,10 +2,9 @@ import React from "react";
 
 import { Ionicons } from "@expo/vector-icons";
 import { Container } from "./styles";
-import { CartButton } from "../CartButton";
 import { useNavigation } from "@react-navigation/native";
 
-export function ProductHeader() {
+export function CartHeader() {
   const navigation = useNavigation();
 
   return (
@@ -16,7 +15,6 @@ export function ProductHeader() {
         color="white"
         onPress={() => navigation.goBack()}
       />
-      <CartButton />
     </Container>
   );
 }

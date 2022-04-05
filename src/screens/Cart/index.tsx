@@ -2,18 +2,13 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useEffect } from "react";
 
 import { FlatList, View } from "react-native";
+import { CartBar } from "../../components/CartBar";
+import { CartHeader } from "../../components/CartHeader";
 import { CartItem } from "../../components/CartItem";
-import { HighlightButton } from "../../components/HighlightButton";
-import { ProductType } from "../../global/types";
+import { CouponField } from "../../components/CouponField";
 import { useAuth } from "../../hooks/useAuth";
 import { useCart } from "../../hooks/useCart";
-import {
-  Container,
-  PrimaryView,
-  ResumeText,
-  ResumeTitle,
-  ResumeView,
-} from "./styles";
+import { Container, ContentContainer, EmptyText, PageTitle } from "./styles";
 
 export function Cart() {
   const { cart, cartTotal, createSell } = useCart();
@@ -29,29 +24,27 @@ export function Cart() {
       navigation.navigate("Home" as never, {} as never);
     });
   }
-
   return (
     <Container>
-      <PrimaryView />
-      <ResumeView>
-        <ResumeTitle>Total do carrinho: </ResumeTitle>
-        <ResumeText>{cart.length >= 1 ? formattedPrice : "R$ -"}</ResumeText>
-      </ResumeView>
-      <FlatList
-        data={cart}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <CartItem product={item} />}
-        contentContainerStyle={{
-          alignItems: "center",
-        }}
-      />
-      <HighlightButton
-        onPress={() => {
-          handleSellConfirm();
-        }}
-      >
-        Finalizar compra
-      </HighlightButton>
+      <CartHeader />
+      <PageTitle>Carrinho</PageTitle>
+      <ContentContainer>
+        {cart[0] ? (
+          <>
+            <FlatList
+              data={cart}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => <CartItem product={item} />}
+              contentContainerStyle={{
+                alignItems: "center",
+              }}
+            />
+            <CartBar />
+          </>
+        ) : (
+          <EmptyText>Seu carrinho está vazio.</EmptyText>
+        )}
+      </ContentContainer>
     </Container>
   );
 }

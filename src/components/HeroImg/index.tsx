@@ -1,15 +1,18 @@
 import React from "react";
 
-import { View, Image } from "react-native";
+import { TouchableOpacityProps } from "react-native";
+import { usePromo } from "../../hooks/usePromotion";
 import { HeroContainer, Hero, ImgOverlay } from "./styles";
 
-export function HeroImg() {
+export function HeroImg({ ...rest }: TouchableOpacityProps) {
+  const { collection } = usePromo();
+
   return (
-    <HeroContainer activeOpacity={0.8}>
+    <HeroContainer {...rest}>
       <ImgOverlay style={{ elevation: 1 }} />
       <Hero
         source={{
-          uri: "https://static.nike.com/a/images/w_1920,c_limit/c5048093-6540-4256-a13e-0b048bb11650/como-posso-tornar-me-nike-member-ajuda-nike.jpg",
+          uri: collection.banner_img,
         }}
       />
     </HeroContainer>

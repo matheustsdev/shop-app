@@ -7,6 +7,7 @@ import {
 } from "react";
 import { api } from "../services/api";
 import {
+  CategoryType,
   CreateSellType,
   InCartProductType,
   ProductType,
@@ -29,6 +30,7 @@ interface CartContextData {
   setProduct(product: ProductType): void;
   isLoading: boolean;
   addProductCartWithAmount(productId: number, amount: number): void;
+  categoryList: CategoryType[];
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData);
@@ -39,6 +41,8 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
   const [cartTotal, setCartTotal] = useState(0);
   const [productsList, setProductsList] = useState<ProductType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [categoryList, setCategoryList] = useState<CategoryType[]>([]);
+
   //Fetch products
   useEffect(() => {
     async function getProductsList() {
@@ -52,6 +56,17 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
       return products;
     }
+    async function getCategoryList() {
+      const categories = await api
+        .get("categories")
+        .then((res) => {
+          console.log(res.data);
+          setCategoryList(res.data);
+          return res.data;
+        })
+        .catch((err) => console.log(err));
+    }
+    getCategoryList();
     getProductsList();
   }, []);
 
@@ -203,6 +218,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
         setProduct,
         isLoading,
         addProductCartWithAmount,
+        categoryList,
       }}
     >
       {children}

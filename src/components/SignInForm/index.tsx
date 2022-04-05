@@ -1,10 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useRef, useState } from "react";
 
-import { Alert, ScrollView } from "react-native";
+import { Alert, ScrollView, View } from "react-native";
 import { SignInUser, UserType } from "../../global/types";
 import { useAuth } from "../../hooks/useAuth";
-import { PrimaryButton } from "../PrimaryButton";
+import { SigninButton } from "../SigninButton";
 
 import { ContainerView, StyledInput, StyledLabel } from "./styles";
 
@@ -43,7 +43,7 @@ export function SignInForm() {
 
   useEffect(() => {
     if (userPreviousValue !== user) {
-      if (user.user_id === undefined) {
+      if (user.id === undefined) {
         navigation.navigate("Login" as never, {} as never);
       }
     }
@@ -57,24 +57,29 @@ export function SignInForm() {
       }}
     >
       <ContainerView>
-        <StyledLabel>Como gostaria de ser chamado?</StyledLabel>
-        <StyledInput onChangeText={setNickname} value={nickname} />
+        <View>
+          <StyledLabel>Nome</StyledLabel>
+          <StyledInput onChangeText={setFullname} value={fullname} />
+        </View>
+        <View>
+          <StyledLabel>Email</StyledLabel>
+          <StyledInput onChangeText={setEmail} value={email} />
+        </View>
+        <View>
+          <StyledLabel>Senha</StyledLabel>
+          <StyledInput onChangeText={setPassword} value={password} />
+        </View>
+        <View>
+          <StyledLabel>Repita a senha</StyledLabel>
+          <StyledInput
+            onChangeText={setVerifyPassword}
+            value={verifyPassword}
+          />
+        </View>
 
-        <StyledLabel>Nome completo</StyledLabel>
-        <StyledInput onChangeText={setFullname} value={fullname} />
-
-        <StyledLabel>Email</StyledLabel>
-        <StyledInput onChangeText={setEmail} value={email} />
-
-        <StyledLabel>Senha</StyledLabel>
-        <StyledInput onChangeText={setPassword} value={password} />
-
-        <StyledLabel>Confirmar senha</StyledLabel>
-        <StyledInput onChangeText={setVerifyPassword} value={verifyPassword} />
-
-        <PrimaryButton onPress={() => handleSubmitNewUser()}>
-          Cadastrar
-        </PrimaryButton>
+        <SigninButton onPress={() => handleSubmitNewUser()}>
+          Registre-se
+        </SigninButton>
       </ContainerView>
     </ScrollView>
   );

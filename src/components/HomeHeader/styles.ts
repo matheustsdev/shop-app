@@ -9,3 +9,9 @@ export const Header = styled.View`
   align-items: center;
   justify-content: space-between;
 `;
+export const LogoutButton = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
+
+  width: 32px;
+`;

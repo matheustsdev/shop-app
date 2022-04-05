@@ -14,6 +14,7 @@ import { CartProvider } from "./src/hooks/useCart";
 import { StatusBar } from "expo-status-bar";
 import { AuthProvider } from "./src/hooks/useAuth";
 import { View } from "react-native";
+import { PromoProvider } from "./src/hooks/usePromotion";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -27,11 +28,13 @@ export default function App() {
   }
 
   return (
-    <AuthProvider>
-      <CartProvider>
-        <StatusBar translucent />
-        <AppRoutes />
-      </CartProvider>
-    </AuthProvider>
+    <PromoProvider>
+      <AuthProvider>
+        <CartProvider>
+          <StatusBar translucent />
+          <AppRoutes />
+        </CartProvider>
+      </AuthProvider>
+    </PromoProvider>
   );
 }

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import { View } from "react-native";
 import { ProductType } from "../../global/types";
 import { useCart } from "../../hooks/useCart";
 import { UpdateAmountBar } from "../UpdateAmountBar";

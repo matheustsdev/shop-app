@@ -1,24 +1,29 @@
 import React from "react";
 
-import { View, Text } from "react-native";
-import { ProductType } from "../../global/types";
 import { Container, Label, UpdateButton } from "./styles";
 
 interface Type {
   amount: number;
+  color?: string;
   onIncrease(): void;
   onDecrease(): void;
 }
 
-export function UpdateAmountBar({ amount, onDecrease, onIncrease }: Type) {
+export function UpdateAmountBar({
+  amount,
+  color,
+  onDecrease,
+  onIncrease,
+}: Type) {
+  const usingColor = color === undefined ? "white" : color;
   return (
-    <Container>
+    <Container style={{ borderColor: usingColor }}>
       <UpdateButton onPress={() => onDecrease()}>
-        <Label>-</Label>
+        <Label style={{ color: usingColor }}>-</Label>
       </UpdateButton>
-      <Label>{amount}</Label>
+      <Label style={{ color: usingColor }}>{amount}</Label>
       <UpdateButton onPress={() => onIncrease()}>
-        <Label>+</Label>
+        <Label style={{ color: usingColor }}>+</Label>
       </UpdateButton>
     </Container>
   );

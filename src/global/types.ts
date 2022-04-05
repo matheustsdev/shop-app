@@ -13,7 +13,7 @@ export interface ProductType {
 
 export interface CategoryType {
   id: number;
-  name: string;
+  category: string;
 }
 
 export interface InCartProductType extends ProductType {
@@ -44,5 +44,14 @@ export interface CreateSellType {
   products: {
     product_id: number;
     amount: Number;
+  }[];
+}
+export interface CollectionType {
+  id: number;
+  name: string;
+  banner_img: string;
+  body: string;
+  collection_products: {
+    product: ProductType;
   }[];
 }

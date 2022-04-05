@@ -12,7 +12,7 @@ export const Badger = styled.View`
   height: 20px;
 
   border-radius: 12px;
-  background-color: ${mainTheme.highlight};
+  background-color: ${mainTheme.secondary};
 
   justify-content: center;
   align-items: center;
@@ -24,4 +24,5 @@ export const Badger = styled.View`
 export const LabelBadger = styled.Text`
   font-size: 12px;
   font-weight: bold;
+  color: #fff;
 `;

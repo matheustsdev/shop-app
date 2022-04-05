@@ -1,30 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { AntDesign } from "@expo/vector-icons";
 import { InCartProductType } from "../../global/types";
-import { ModalView } from "../ModalView";
-import { ProductModal } from "../ProductModal";
+import { Ionicons } from "@expo/vector-icons";
 
 import {
-  AmountItemButton,
-  AmountItemContainer,
-  AmountItemInput,
   ImageBox,
   ItemContainer,
   ItemContent,
   ProductDetails,
-  ProductPrice,
   ProductTitle,
+  RemoveItem,
   TotalProduct,
 } from "./styles";
 import { useCart } from "../../hooks/useCart";
+import { UpdateAmountBar } from "../UpdateAmountBar";
+import { mainTheme } from "../../global/themes";
 
 interface CartItemType {
   product: InCartProductType;
 }
 
 export function CartItem({ product }: CartItemType) {
-  const [modalVisibility, setModalVisibility] = useState(false);
+  const [subTotal, setSubTotal] = useState("");
 
   const { updateProductAmount } = useCart();
 
@@ -36,57 +33,42 @@ export function CartItem({ product }: CartItemType) {
     updateProductAmount(product.id, product.inCartAmount - 1);
   }
 
-  function handleOpenModal() {
-    setModalVisibility(true);
+  function handleRemoveProduct() {
+    updateProductAmount(product.id, 0);
   }
 
-  function handleCloseModal() {
-    setModalVisibility(false);
-  }
+  useEffect(() => {
+    const newPrice = product.price * product.inCartAmount;
+
+    const formattedPrice = `R$ ${Math.floor(newPrice / 100)},${String(
+      newPrice
+    ).slice(-2)}`;
+
+    setSubTotal(formattedPrice);
+  }, [product]);
 
   return (
-    <>
-      <ItemContainer activeOpacity={0.9} onPress={handleOpenModal}>
-        <ItemContent>
-          <ImageBox source={{ uri: product.img_url }} resizeMode={"contain"} />
-          <ProductDetails>
-            <ProductTitle>{product.title}</ProductTitle>
-            <ProductPrice>{(product.price / 100).toFixed(2)}</ProductPrice>
-            <TotalProduct>
-              Total R${" "}
-              {((product.price / 100) * product.inCartAmount).toFixed(2)}
-            </TotalProduct>
-          </ProductDetails>
-          <AmountItemContainer>
-            <AmountItemButton
-              onPress={handleDecreaseAmount}
-              activeOpacity={0.8}
-            >
-              <AntDesign name="minuscircleo" size={20} color="black" />
-            </AmountItemButton>
-            <AmountItemInput
-              value={product.inCartAmount.toString()}
-              editable={false}
-            />
-            <AmountItemButton
-              onPress={handleIncreaseAmount}
-              activeOpacity={0.8}
-            >
-              <AntDesign name="pluscircleo" size={20} color="black" />
-            </AmountItemButton>
-          </AmountItemContainer>
-        </ItemContent>
-      </ItemContainer>
-
-      <ModalView
-        transparent
-        closeModal={handleCloseModal}
-        onDismiss={handleCloseModal}
-        onRequestClose={handleCloseModal}
-        visible={modalVisibility}
-      >
-        <ProductModal product={product} />
-      </ModalView>
-    </>
+    <ItemContainer
+      activeOpacity={0.9}
+      onPress={() => {}}
+      style={{ elevation: 5 }}
+    >
+      <ItemContent>
+        <ImageBox source={{ uri: product.img_url }} resizeMode={"contain"} />
+        <ProductDetails>
+          <ProductTitle>{product.title}</ProductTitle>
+          <TotalProduct>{subTotal}</TotalProduct>
+        </ProductDetails>
+        <UpdateAmountBar
+          onDecrease={handleDecreaseAmount}
+          onIncrease={handleIncreaseAmount}
+          amount={product.inCartAmount}
+          color={"black"}
+        />
+        <RemoveItem onPress={handleRemoveProduct}>
+          <Ionicons name="trash-outline" size={24} color={mainTheme.primary} />
+        </RemoveItem>
+      </ItemContent>
+    </ItemContainer>
   );
 }

@@ -15,26 +15,27 @@ export const Heading = styled.Text`
   color: ${mainTheme.highlight};
 `;
 export const LoginContainer = styled.View`
-  height: 400px;
+  height: 300px;
   padding-top: 75px;
   align-items: center;
   justify-content: space-between;
 `;
 
-export const LinkContainer = styled.TouchableOpacity`
+export const SigninContainer = styled.View`
   width: 100%;
-  height: 50px;
+  height: 62px;
 
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 
   align-self: flex-end;
 
-  margin-top: 175px;
+  margin-top: 150px;
 `;
 
-export const RegisterLink = styled.Text`
-  color: blue;
+export const RegisterText = styled.Text`
   font-size: 16px;
+  line-height: 24px;
 
   text-align: center;
 `;

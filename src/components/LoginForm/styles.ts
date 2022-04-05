@@ -2,9 +2,8 @@ import styled from "styled-components/native";
 import { mainTheme } from "../../global/themes";
 
 export const InputContainer = styled.View`
-  flex: 1;
   width: 100%;
-
+  height: 55px;
   align-items: center;
 `;
 export const StyledLabel = styled.Text`
@@ -12,17 +11,15 @@ export const StyledLabel = styled.Text`
   text-align: left;
   font-weight: 500;
   font-size: 16px;
+  line-height: 24px;
+  padding-left: 12px;
   color: ${mainTheme.dark};
 `;
 
 export const StyledInput = styled.TextInput`
-  width: 250px;
-  height: 35px;
+  width: 247px;
+  height: 32px;
   background-color: #eee;
-  border-radius: 8px;
-  padding-left: 6px;
-
-  border-width: 1px;
-  border-color: #ddd;
-  margin-top: 8px;
+  border-radius: 16px;
+  padding-left: 12px;
 `;

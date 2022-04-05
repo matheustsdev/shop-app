@@ -1,16 +1,24 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { Alert, Platform, ScrollView, TouchableOpacity } from "react-native";
+import {
+  Alert,
+  Image,
+  Platform,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import { LoginForm } from "../../components/LoginForm";
-import { PrimaryButton } from "../../components/PrimaryButton";
 import { useAuth } from "../../hooks/useAuth";
 import {
   ContainerView,
   Heading,
-  LinkContainer,
+  SigninContainer,
   LoginContainer,
-  RegisterLink,
+  RegisterText,
 } from "./styles";
+import { SecondaryButton } from "../../components/SecondaryButton";
+import { LoginButton } from "../../components/LoginButton";
 
 export function LoginScreen() {
   const navigation = useNavigation();
@@ -31,14 +39,13 @@ export function LoginScreen() {
 
   return (
     <ContainerView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+      <Image source={require("../../assets/nike-icon.png")} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{
           width: "90%",
         }}
       >
-        <Heading>Login</Heading>
-
         <LoginContainer>
           <LoginForm
             onChangeEmail={(text) => setEmail(text)}
@@ -46,21 +53,23 @@ export function LoginScreen() {
             onChangePassword={(text) => setPassword(text)}
             passwordValue={password}
           />
-          <PrimaryButton
+          <LoginButton
             onPress={() => {
               handleLogin();
             }}
           >
             Entrar
-          </PrimaryButton>
+          </LoginButton>
         </LoginContainer>
 
-        <LinkContainer
-          activeOpacity={0.9}
-          onPress={() => navigation.navigate("SignIn" as never, {} as never)}
-        >
-          <RegisterLink>Ainda não possui uma conta? Registre-se</RegisterLink>
-        </LinkContainer>
+        <SigninContainer>
+          <RegisterText>Não tem uma conta?</RegisterText>
+          <SecondaryButton
+            onPress={() => navigation.navigate("SignIn" as never, {} as never)}
+          >
+            Cadastre-se
+          </SecondaryButton>
+        </SigninContainer>
       </ScrollView>
     </ContainerView>
   );

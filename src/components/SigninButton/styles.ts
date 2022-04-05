@@ -1,18 +1,20 @@
 import { mainTheme } from "../../global/themes";
 import styled from "styled-components/native";
 
-export const ButtonContainer = styled.TouchableOpacity`
-  width: 150px;
-  height: 50px;
-  border-radius: 25px;
+export const Container = styled.TouchableOpacity`
+  width: 192px;
+  height: 48px;
+  border-radius: 24px;
   background-color: ${mainTheme.primary};
 
   align-items: center;
-  justify-content: center;
+  flex-direction: row;
+
+  padding: 0 32px;
 `;
-export const StyledLabel = styled.Text`
+export const StyledText = styled.Text`
   color: ${mainTheme.light};
 
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
 `;

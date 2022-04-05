@@ -3,8 +3,6 @@ import React, { useState } from "react";
 
 import { ProductType } from "../../global/types";
 import { useCart } from "../../hooks/useCart";
-import { ModalView } from "../ModalView";
-import { ProductModal } from "../ProductModal";
 import {
   BlanckProduct,
   ImageBox,
@@ -53,15 +51,6 @@ export function ProductButton({ product }: ProductButtonType) {
             <ProductTitle>{product.title}</ProductTitle>
             <ProductPrice>{formattedPrice}</ProductPrice>
           </TitleContainer>
-          <ModalView
-            transparent
-            closeModal={handleCloseModal}
-            onDismiss={handleCloseModal}
-            onRequestClose={handleCloseModal}
-            visible={modalVisibility}
-          >
-            <ProductModal product={product} />
-          </ModalView>
         </ProductContainer>
       )}
     </>

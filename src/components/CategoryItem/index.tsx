@@ -1,6 +1,5 @@
 import React from "react";
 
-import { Text } from "react-native";
 import { CategoryType } from "../../global/types";
 import { Active, ActiveLabel, Inactive, InactiveLabel } from "./styles";
 
@@ -17,13 +16,13 @@ export function CategoryItem({
 }: CategoryItemType) {
   return (
     <>
-      {activeCategory === category.name ? (
+      {activeCategory === category.category ? (
         <Active activeOpacity={0.9} onPress={onPress}>
-          <ActiveLabel>{category.name}</ActiveLabel>
+          <ActiveLabel>{category.category}</ActiveLabel>
         </Active>
       ) : (
         <Inactive activeOpacity={0.9} onPress={onPress}>
-          <InactiveLabel>{category.name}</InactiveLabel>
+          <InactiveLabel>{category.category}</InactiveLabel>
         </Inactive>
       )}
     </>
